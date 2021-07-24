@@ -1,0 +1,1195 @@
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"core_init.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.MX_USART1_UART_Init,"ax",%progbits
+  16              		.align	1
+  17              		.global	MX_USART1_UART_Init
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	MX_USART1_UART_Init:
+  25              	.LFB68:
+  26              		.file 1 "Src/core_init.c"
+   1:Src/core_init.c **** /* -----INCLUDES----- */
+   2:Src/core_init.c **** #include "main.h"
+   3:Src/core_init.c **** #include "core_init.h"
+   4:Src/core_init.c **** #include <stdlib.h>
+   5:Src/core_init.c **** #include <string.h>
+   6:Src/core_init.c **** #include <stdio.h>
+   7:Src/core_init.c **** #include <stdbool.h>
+   8:Src/core_init.c **** #include <stdarg.h>
+   9:Src/core_init.c **** 
+  10:Src/core_init.c **** /* -----DEFINES----- */
+  11:Src/core_init.c **** UART_HandleTypeDef huart1;
+  12:Src/core_init.c **** #define MAX_STRING_PARSE_SIZE 200
+  13:Src/core_init.c **** 
+  14:Src/core_init.c **** /* -----STRUCTS | ENUMS | UNIONS----- */
+  15:Src/core_init.c **** ErrorTable_t error_string_table[] = {
+  16:Src/core_init.c ****     {eStringIsTooLarge	,	"STRING IS TOO LARGE1\r" },
+  17:Src/core_init.c ****     {eNegativeFrequency	,	"NEGATIVE FREQUENCY IS SET\r" },
+  18:Src/core_init.c ****     /* Insert additional values based on error conditions */
+  19:Src/core_init.c **** };
+  20:Src/core_init.c **** /* -----LOCAL VARIABLES----- */
+  21:Src/core_init.c **** 
+  22:Src/core_init.c **** /* -----FUNCTIONS----- */
+  23:Src/core_init.c **** void MX_USART1_UART_Init(void) {
+  27              		.loc 1 23 32 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 2
+
+
+  24:Src/core_init.c ****     huart1.Instance = USART1;
+  36              		.loc 1 24 5 view .LVU1
+  37              		.loc 1 24 21 is_stmt 0 view .LVU2
+  38 0002 0848     		ldr	r0, .L3
+  39 0004 084B     		ldr	r3, .L3+4
+  40 0006 0360     		str	r3, [r0]
+  25:Src/core_init.c ****     huart1.Init.BaudRate = 115200;
+  41              		.loc 1 25 5 is_stmt 1 view .LVU3
+  42              		.loc 1 25 26 is_stmt 0 view .LVU4
+  43 0008 4FF4E133 		mov	r3, #115200
+  44 000c 4360     		str	r3, [r0, #4]
+  26:Src/core_init.c ****     huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  45              		.loc 1 26 5 is_stmt 1 view .LVU5
+  46              		.loc 1 26 28 is_stmt 0 view .LVU6
+  47 000e 0023     		movs	r3, #0
+  48 0010 8360     		str	r3, [r0, #8]
+  27:Src/core_init.c ****     huart1.Init.StopBits = UART_STOPBITS_1;
+  49              		.loc 1 27 5 is_stmt 1 view .LVU7
+  50              		.loc 1 27 26 is_stmt 0 view .LVU8
+  51 0012 C360     		str	r3, [r0, #12]
+  28:Src/core_init.c ****     huart1.Init.Parity = UART_PARITY_NONE;
+  52              		.loc 1 28 5 is_stmt 1 view .LVU9
+  53              		.loc 1 28 24 is_stmt 0 view .LVU10
+  54 0014 0361     		str	r3, [r0, #16]
+  29:Src/core_init.c ****     huart1.Init.Mode = UART_MODE_TX_RX;
+  55              		.loc 1 29 5 is_stmt 1 view .LVU11
+  56              		.loc 1 29 22 is_stmt 0 view .LVU12
+  57 0016 0C22     		movs	r2, #12
+  58 0018 4261     		str	r2, [r0, #20]
+  30:Src/core_init.c ****     huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  59              		.loc 1 30 5 is_stmt 1 view .LVU13
+  60              		.loc 1 30 27 is_stmt 0 view .LVU14
+  61 001a 8361     		str	r3, [r0, #24]
+  31:Src/core_init.c ****     huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  62              		.loc 1 31 5 is_stmt 1 view .LVU15
+  63              		.loc 1 31 30 is_stmt 0 view .LVU16
+  64 001c C361     		str	r3, [r0, #28]
+  32:Src/core_init.c ****     HAL_UART_Init(&huart1);
+  65              		.loc 1 32 5 is_stmt 1 view .LVU17
+  66 001e FFF7FEFF 		bl	HAL_UART_Init
+  67              	.LVL0:
+  33:Src/core_init.c **** }
+  68              		.loc 1 33 1 is_stmt 0 view .LVU18
+  69 0022 08BD     		pop	{r3, pc}
+  70              	.L4:
+  71              		.align	2
+  72              	.L3:
+  73 0024 00000000 		.word	.LANCHOR0
+  74 0028 00380140 		.word	1073821696
+  75              		.cfi_endproc
+  76              	.LFE68:
+  78              		.section	.text.SystemClock_Config,"ax",%progbits
+  79              		.align	1
+  80              		.global	SystemClock_Config
+  81              		.syntax unified
+  82              		.thumb
+  83              		.thumb_func
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 3
+
+
+  84              		.fpu softvfp
+  86              	SystemClock_Config:
+  87              	.LFB69:
+  34:Src/core_init.c **** 
+  35:Src/core_init.c **** void SystemClock_Config(void) {
+  88              		.loc 1 35 31 is_stmt 1 view -0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 64
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+  92 0000 00B5     		push	{lr}
+  93              	.LCFI1:
+  94              		.cfi_def_cfa_offset 4
+  95              		.cfi_offset 14, -4
+  96 0002 91B0     		sub	sp, sp, #68
+  97              	.LCFI2:
+  98              		.cfi_def_cfa_offset 72
+  36:Src/core_init.c ****     RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  99              		.loc 1 36 5 view .LVU20
+ 100              		.loc 1 36 24 is_stmt 0 view .LVU21
+ 101 0004 2822     		movs	r2, #40
+ 102 0006 0021     		movs	r1, #0
+ 103 0008 06A8     		add	r0, sp, #24
+ 104 000a FFF7FEFF 		bl	memset
+ 105              	.LVL1:
+  37:Src/core_init.c ****     RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 106              		.loc 1 37 5 is_stmt 1 view .LVU22
+ 107              		.loc 1 37 24 is_stmt 0 view .LVU23
+ 108 000e 0023     		movs	r3, #0
+ 109 0010 0193     		str	r3, [sp, #4]
+ 110 0012 0293     		str	r3, [sp, #8]
+ 111 0014 0393     		str	r3, [sp, #12]
+ 112 0016 0493     		str	r3, [sp, #16]
+ 113 0018 0593     		str	r3, [sp, #20]
+  38:Src/core_init.c **** 
+  39:Src/core_init.c ****     RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+ 114              		.loc 1 39 5 is_stmt 1 view .LVU24
+ 115              		.loc 1 39 38 is_stmt 0 view .LVU25
+ 116 001a 0122     		movs	r2, #1
+ 117 001c 0692     		str	r2, [sp, #24]
+  40:Src/core_init.c ****     RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 118              		.loc 1 40 5 is_stmt 1 view .LVU26
+ 119              		.loc 1 40 32 is_stmt 0 view .LVU27
+ 120 001e 4FF48033 		mov	r3, #65536
+ 121 0022 0793     		str	r3, [sp, #28]
+  41:Src/core_init.c ****     RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
+ 122              		.loc 1 41 5 is_stmt 1 view .LVU28
+  42:Src/core_init.c ****     RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+ 123              		.loc 1 42 5 view .LVU29
+ 124              		.loc 1 42 32 is_stmt 0 view .LVU30
+ 125 0024 0A92     		str	r2, [sp, #40]
+  43:Src/core_init.c ****     RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 126              		.loc 1 43 5 is_stmt 1 view .LVU31
+ 127              		.loc 1 43 36 is_stmt 0 view .LVU32
+ 128 0026 0222     		movs	r2, #2
+ 129 0028 0D92     		str	r2, [sp, #52]
+  44:Src/core_init.c ****     RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ 130              		.loc 1 44 5 is_stmt 1 view .LVU33
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 4
+
+
+ 131              		.loc 1 44 37 is_stmt 0 view .LVU34
+ 132 002a 0E93     		str	r3, [sp, #56]
+  45:Src/core_init.c ****     RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL2;
+ 133              		.loc 1 45 5 is_stmt 1 view .LVU35
+  46:Src/core_init.c ****     if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+ 134              		.loc 1 46 5 view .LVU36
+ 135              		.loc 1 46 9 is_stmt 0 view .LVU37
+ 136 002c 06A8     		add	r0, sp, #24
+ 137 002e FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 138              	.LVL2:
+ 139              		.loc 1 46 8 view .LVU38
+ 140 0032 70B9     		cbnz	r0, .L9
+ 141              	.L6:
+  47:Src/core_init.c ****         Error_Handler();
+  48:Src/core_init.c ****     }
+  49:Src/core_init.c **** 
+  50:Src/core_init.c ****     RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1|RCC_C
+ 142              		.loc 1 50 5 is_stmt 1 view .LVU39
+ 143              		.loc 1 50 33 is_stmt 0 view .LVU40
+ 144 0034 0F23     		movs	r3, #15
+ 145 0036 0193     		str	r3, [sp, #4]
+  51:Src/core_init.c ****     RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+ 146              		.loc 1 51 5 is_stmt 1 view .LVU41
+ 147              		.loc 1 51 36 is_stmt 0 view .LVU42
+ 148 0038 0223     		movs	r3, #2
+ 149 003a 0293     		str	r3, [sp, #8]
+  52:Src/core_init.c ****     RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 150              		.loc 1 52 5 is_stmt 1 view .LVU43
+ 151              		.loc 1 52 37 is_stmt 0 view .LVU44
+ 152 003c 0021     		movs	r1, #0
+ 153 003e 0391     		str	r1, [sp, #12]
+  53:Src/core_init.c ****     RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 154              		.loc 1 53 5 is_stmt 1 view .LVU45
+ 155              		.loc 1 53 38 is_stmt 0 view .LVU46
+ 156 0040 0491     		str	r1, [sp, #16]
+  54:Src/core_init.c ****     RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+ 157              		.loc 1 54 5 is_stmt 1 view .LVU47
+ 158              		.loc 1 54 38 is_stmt 0 view .LVU48
+ 159 0042 0591     		str	r1, [sp, #20]
+  55:Src/core_init.c **** 
+  56:Src/core_init.c ****     if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK) {
+ 160              		.loc 1 56 5 is_stmt 1 view .LVU49
+ 161              		.loc 1 56 9 is_stmt 0 view .LVU50
+ 162 0044 01A8     		add	r0, sp, #4
+ 163 0046 FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 164              	.LVL3:
+ 165              		.loc 1 56 8 view .LVU51
+ 166 004a 28B9     		cbnz	r0, .L10
+ 167              	.L5:
+  57:Src/core_init.c ****         Error_Handler();
+  58:Src/core_init.c ****     }
+  59:Src/core_init.c **** }
+ 168              		.loc 1 59 1 view .LVU52
+ 169 004c 11B0     		add	sp, sp, #68
+ 170              	.LCFI3:
+ 171              		.cfi_remember_state
+ 172              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 5
+
+
+ 173              		@ sp needed
+ 174 004e 5DF804FB 		ldr	pc, [sp], #4
+ 175              	.L9:
+ 176              	.LCFI4:
+ 177              		.cfi_restore_state
+  47:Src/core_init.c ****     }
+ 178              		.loc 1 47 9 is_stmt 1 view .LVU53
+ 179 0052 FFF7FEFF 		bl	Error_Handler
+ 180              	.LVL4:
+ 181 0056 EDE7     		b	.L6
+ 182              	.L10:
+  57:Src/core_init.c ****         Error_Handler();
+ 183              		.loc 1 57 9 view .LVU54
+ 184 0058 FFF7FEFF 		bl	Error_Handler
+ 185              	.LVL5:
+ 186              		.loc 1 59 1 is_stmt 0 view .LVU55
+ 187 005c F6E7     		b	.L5
+ 188              		.cfi_endproc
+ 189              	.LFE69:
+ 191              		.section	.text.MX_GPIO_Init,"ax",%progbits
+ 192              		.align	1
+ 193              		.global	MX_GPIO_Init
+ 194              		.syntax unified
+ 195              		.thumb
+ 196              		.thumb_func
+ 197              		.fpu softvfp
+ 199              	MX_GPIO_Init:
+ 200              	.LFB70:
+  60:Src/core_init.c **** 
+  61:Src/core_init.c **** void MX_GPIO_Init(void) {
+ 201              		.loc 1 61 25 is_stmt 1 view -0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 32
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 206              	.LCFI5:
+ 207              		.cfi_def_cfa_offset 24
+ 208              		.cfi_offset 4, -24
+ 209              		.cfi_offset 5, -20
+ 210              		.cfi_offset 6, -16
+ 211              		.cfi_offset 7, -12
+ 212              		.cfi_offset 8, -8
+ 213              		.cfi_offset 14, -4
+ 214 0004 88B0     		sub	sp, sp, #32
+ 215              	.LCFI6:
+ 216              		.cfi_def_cfa_offset 56
+  62:Src/core_init.c ****     GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 217              		.loc 1 62 5 view .LVU57
+ 218              		.loc 1 62 22 is_stmt 0 view .LVU58
+ 219 0006 0024     		movs	r4, #0
+ 220 0008 0494     		str	r4, [sp, #16]
+ 221 000a 0594     		str	r4, [sp, #20]
+ 222 000c 0694     		str	r4, [sp, #24]
+ 223 000e 0794     		str	r4, [sp, #28]
+  63:Src/core_init.c **** 
+  64:Src/core_init.c ****     /* GPIO Ports Clock Enable */
+  65:Src/core_init.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 6
+
+
+ 224              		.loc 1 65 5 is_stmt 1 view .LVU59
+ 225              	.LBB2:
+ 226              		.loc 1 65 5 view .LVU60
+ 227              		.loc 1 65 5 view .LVU61
+ 228 0010 254B     		ldr	r3, .L13
+ 229 0012 9A69     		ldr	r2, [r3, #24]
+ 230 0014 42F01002 		orr	r2, r2, #16
+ 231 0018 9A61     		str	r2, [r3, #24]
+ 232              		.loc 1 65 5 view .LVU62
+ 233 001a 9A69     		ldr	r2, [r3, #24]
+ 234 001c 02F01002 		and	r2, r2, #16
+ 235 0020 0192     		str	r2, [sp, #4]
+ 236              		.loc 1 65 5 view .LVU63
+ 237 0022 019A     		ldr	r2, [sp, #4]
+ 238              	.LBE2:
+ 239              		.loc 1 65 5 view .LVU64
+  66:Src/core_init.c ****     __HAL_RCC_GPIOD_CLK_ENABLE();
+ 240              		.loc 1 66 5 view .LVU65
+ 241              	.LBB3:
+ 242              		.loc 1 66 5 view .LVU66
+ 243              		.loc 1 66 5 view .LVU67
+ 244 0024 9A69     		ldr	r2, [r3, #24]
+ 245 0026 42F02002 		orr	r2, r2, #32
+ 246 002a 9A61     		str	r2, [r3, #24]
+ 247              		.loc 1 66 5 view .LVU68
+ 248 002c 9A69     		ldr	r2, [r3, #24]
+ 249 002e 02F02002 		and	r2, r2, #32
+ 250 0032 0292     		str	r2, [sp, #8]
+ 251              		.loc 1 66 5 view .LVU69
+ 252 0034 029A     		ldr	r2, [sp, #8]
+ 253              	.LBE3:
+ 254              		.loc 1 66 5 view .LVU70
+  67:Src/core_init.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+ 255              		.loc 1 67 5 view .LVU71
+ 256              	.LBB4:
+ 257              		.loc 1 67 5 view .LVU72
+ 258              		.loc 1 67 5 view .LVU73
+ 259 0036 9A69     		ldr	r2, [r3, #24]
+ 260 0038 42F00402 		orr	r2, r2, #4
+ 261 003c 9A61     		str	r2, [r3, #24]
+ 262              		.loc 1 67 5 view .LVU74
+ 263 003e 9B69     		ldr	r3, [r3, #24]
+ 264 0040 03F00403 		and	r3, r3, #4
+ 265 0044 0393     		str	r3, [sp, #12]
+ 266              		.loc 1 67 5 view .LVU75
+ 267 0046 039B     		ldr	r3, [sp, #12]
+ 268              	.LBE4:
+ 269              		.loc 1 67 5 view .LVU76
+  68:Src/core_init.c **** 
+  69:Src/core_init.c ****     /*Configure GPIO pin Output Level */
+  70:Src/core_init.c ****     HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+ 270              		.loc 1 70 5 view .LVU77
+ 271 0048 DFF86080 		ldr	r8, .L13+4
+ 272 004c 2246     		mov	r2, r4
+ 273 004e 4FF40051 		mov	r1, #8192
+ 274 0052 4046     		mov	r0, r8
+ 275 0054 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 7
+
+
+ 276              	.LVL6:
+  71:Src/core_init.c **** 
+  72:Src/core_init.c ****     /*Configure GPIO pin Output Level */
+  73:Src/core_init.c ****     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7, GPIO_PIN_RESET);
+ 277              		.loc 1 73 5 view .LVU78
+ 278 0058 154E     		ldr	r6, .L13+8
+ 279 005a 2246     		mov	r2, r4
+ 280 005c E021     		movs	r1, #224
+ 281 005e 3046     		mov	r0, r6
+ 282 0060 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 283              	.LVL7:
+  74:Src/core_init.c **** 
+  75:Src/core_init.c ****     /*Configure GPIO pin : PC13 */
+  76:Src/core_init.c ****     GPIO_InitStruct.Pin = GPIO_PIN_13;
+ 284              		.loc 1 76 5 view .LVU79
+ 285              		.loc 1 76 25 is_stmt 0 view .LVU80
+ 286 0064 4FF40053 		mov	r3, #8192
+ 287 0068 0493     		str	r3, [sp, #16]
+  77:Src/core_init.c ****     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 288              		.loc 1 77 5 is_stmt 1 view .LVU81
+ 289              		.loc 1 77 26 is_stmt 0 view .LVU82
+ 290 006a 0127     		movs	r7, #1
+ 291 006c 0597     		str	r7, [sp, #20]
+  78:Src/core_init.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 292              		.loc 1 78 5 is_stmt 1 view .LVU83
+ 293              		.loc 1 78 26 is_stmt 0 view .LVU84
+ 294 006e 0694     		str	r4, [sp, #24]
+  79:Src/core_init.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 295              		.loc 1 79 5 is_stmt 1 view .LVU85
+ 296              		.loc 1 79 27 is_stmt 0 view .LVU86
+ 297 0070 0225     		movs	r5, #2
+ 298 0072 0795     		str	r5, [sp, #28]
+  80:Src/core_init.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+ 299              		.loc 1 80 5 is_stmt 1 view .LVU87
+ 300 0074 04A9     		add	r1, sp, #16
+ 301 0076 4046     		mov	r0, r8
+ 302 0078 FFF7FEFF 		bl	HAL_GPIO_Init
+ 303              	.LVL8:
+  81:Src/core_init.c **** 
+  82:Src/core_init.c ****     /* Configure GPIO pins : PA5 PA6 PA7 */
+  83:Src/core_init.c ****     GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
+ 304              		.loc 1 83 5 view .LVU88
+ 305              		.loc 1 83 25 is_stmt 0 view .LVU89
+ 306 007c 6023     		movs	r3, #96
+ 307 007e 0493     		str	r3, [sp, #16]
+  84:Src/core_init.c ****     GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 308              		.loc 1 84 5 is_stmt 1 view .LVU90
+ 309              		.loc 1 84 26 is_stmt 0 view .LVU91
+ 310 0080 0597     		str	r7, [sp, #20]
+  85:Src/core_init.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 311              		.loc 1 85 5 is_stmt 1 view .LVU92
+ 312              		.loc 1 85 26 is_stmt 0 view .LVU93
+ 313 0082 0694     		str	r4, [sp, #24]
+  86:Src/core_init.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 314              		.loc 1 86 5 is_stmt 1 view .LVU94
+ 315              		.loc 1 86 27 is_stmt 0 view .LVU95
+ 316 0084 0795     		str	r5, [sp, #28]
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 8
+
+
+  87:Src/core_init.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 317              		.loc 1 87 5 is_stmt 1 view .LVU96
+ 318 0086 04A9     		add	r1, sp, #16
+ 319 0088 3046     		mov	r0, r6
+ 320 008a FFF7FEFF 		bl	HAL_GPIO_Init
+ 321              	.LVL9:
+  88:Src/core_init.c **** 
+  89:Src/core_init.c ****     GPIO_InitStruct.Pin = GPIO_PIN_7;
+ 322              		.loc 1 89 5 view .LVU97
+ 323              		.loc 1 89 25 is_stmt 0 view .LVU98
+ 324 008e 8023     		movs	r3, #128
+ 325 0090 0493     		str	r3, [sp, #16]
+  90:Src/core_init.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 326              		.loc 1 90 5 is_stmt 1 view .LVU99
+ 327              		.loc 1 90 26 is_stmt 0 view .LVU100
+ 328 0092 0595     		str	r5, [sp, #20]
+  91:Src/core_init.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 329              		.loc 1 91 5 is_stmt 1 view .LVU101
+ 330              		.loc 1 91 26 is_stmt 0 view .LVU102
+ 331 0094 0694     		str	r4, [sp, #24]
+  92:Src/core_init.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 332              		.loc 1 92 5 is_stmt 1 view .LVU103
+ 333              		.loc 1 92 27 is_stmt 0 view .LVU104
+ 334 0096 0795     		str	r5, [sp, #28]
+  93:Src/core_init.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 335              		.loc 1 93 5 is_stmt 1 view .LVU105
+ 336 0098 04A9     		add	r1, sp, #16
+ 337 009a 3046     		mov	r0, r6
+ 338 009c FFF7FEFF 		bl	HAL_GPIO_Init
+ 339              	.LVL10:
+  94:Src/core_init.c **** }
+ 340              		.loc 1 94 1 is_stmt 0 view .LVU106
+ 341 00a0 08B0     		add	sp, sp, #32
+ 342              	.LCFI7:
+ 343              		.cfi_def_cfa_offset 24
+ 344              		@ sp needed
+ 345 00a2 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 346              	.L14:
+ 347 00a6 00BF     		.align	2
+ 348              	.L13:
+ 349 00a8 00100240 		.word	1073876992
+ 350 00ac 00100140 		.word	1073811456
+ 351 00b0 00080140 		.word	1073809408
+ 352              		.cfi_endproc
+ 353              	.LFE70:
+ 355              		.section	.text.Enabler,"ax",%progbits
+ 356              		.align	1
+ 357              		.global	Enabler
+ 358              		.syntax unified
+ 359              		.thumb
+ 360              		.thumb_func
+ 361              		.fpu softvfp
+ 363              	Enabler:
+ 364              	.LVL11:
+ 365              	.LFB71:
+  95:Src/core_init.c **** 
+  96:Src/core_init.c **** 
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 9
+
+
+  97:Src/core_init.c **** /*
+  98:Src/core_init.c ****     Initial API handler. Enables different API's based on set flags. Has to be run at the start.
+  99:Src/core_init.c ****     Example: Enabler (true, true, false, false, true, false);
+ 100:Src/core_init.c **** */
+ 101:Src/core_init.c **** void Enabler (bool gpio_flag,
+ 102:Src/core_init.c ****               bool usart1_flag,
+ 103:Src/core_init.c ****               bool sysclock_flag,
+ 104:Src/core_init.c ****               bool hal_flag,
+ 105:Src/core_init.c ****               bool tim1_flag,
+ 106:Src/core_init.c ****               bool tim2_flag) {
+ 366              		.loc 1 106 31 is_stmt 1 view -0
+ 367              		.cfi_startproc
+ 368              		@ args = 8, pretend = 0, frame = 0
+ 369              		@ frame_needed = 0, uses_anonymous_args = 0
+ 370              		.loc 1 106 31 is_stmt 0 view .LVU108
+ 371 0000 70B5     		push	{r4, r5, r6, lr}
+ 372              	.LCFI8:
+ 373              		.cfi_def_cfa_offset 16
+ 374              		.cfi_offset 4, -16
+ 375              		.cfi_offset 5, -12
+ 376              		.cfi_offset 6, -8
+ 377              		.cfi_offset 14, -4
+ 378 0002 0E46     		mov	r6, r1
+ 379 0004 1546     		mov	r5, r2
+ 380 0006 1C46     		mov	r4, r3
+ 107:Src/core_init.c ****     if (gpio_flag == true) {
+ 381              		.loc 1 107 5 is_stmt 1 view .LVU109
+ 382              		.loc 1 107 8 is_stmt 0 view .LVU110
+ 383 0008 18B9     		cbnz	r0, .L21
+ 384              	.LVL12:
+ 385              	.L16:
+ 108:Src/core_init.c ****         MX_GPIO_Init();
+ 109:Src/core_init.c ****     } else {
+ 110:Src/core_init.c ****         //#warning "GPIO interface is disabled by api!"
+ 111:Src/core_init.c ****     }
+ 386              		.loc 1 111 5 is_stmt 1 view .LVU111
+ 112:Src/core_init.c ****     if (usart1_flag == true) {
+ 387              		.loc 1 112 5 view .LVU112
+ 388              		.loc 1 112 8 is_stmt 0 view .LVU113
+ 389 000a 2EB9     		cbnz	r6, .L22
+ 390              	.L17:
+ 113:Src/core_init.c ****         MX_USART1_UART_Init();
+ 114:Src/core_init.c ****     } else {
+ 115:Src/core_init.c ****         //#warning "USART1 interface is disabled by api!"
+ 116:Src/core_init.c ****     }
+ 391              		.loc 1 116 5 is_stmt 1 view .LVU114
+ 117:Src/core_init.c ****     if (sysclock_flag == true) {
+ 392              		.loc 1 117 5 view .LVU115
+ 393              		.loc 1 117 8 is_stmt 0 view .LVU116
+ 394 000c 3DB9     		cbnz	r5, .L23
+ 395              	.L18:
+ 118:Src/core_init.c ****         SystemClock_Config();
+ 119:Src/core_init.c ****     } else {
+ 120:Src/core_init.c ****         //#warning "USART2 interface is disabled by api!"
+ 121:Src/core_init.c ****     }
+ 396              		.loc 1 121 5 is_stmt 1 view .LVU117
+ 122:Src/core_init.c ****     if (hal_flag == true) {
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 10
+
+
+ 397              		.loc 1 122 5 view .LVU118
+ 398              		.loc 1 122 8 is_stmt 0 view .LVU119
+ 399 000e 4CB9     		cbnz	r4, .L24
+ 400              	.L15:
+ 123:Src/core_init.c ****         HAL_Init();
+ 124:Src/core_init.c ****     } else {
+ 125:Src/core_init.c ****         //#warning "USART3 interface is disabled by api!"
+ 126:Src/core_init.c ****     }
+ 127:Src/core_init.c ****     if (tim1_flag == true) {
+ 128:Src/core_init.c ****         /* insert handler */
+ 129:Src/core_init.c ****     } else {
+ 130:Src/core_init.c ****         //#warning "TIM1 interface is disabled by api!"
+ 131:Src/core_init.c ****     }
+ 132:Src/core_init.c ****     if (tim2_flag == true) {
+ 133:Src/core_init.c ****         /* insert handler */
+ 134:Src/core_init.c ****     } else {
+ 135:Src/core_init.c ****         //#warning "TIM2 interface is disabled by api!"
+ 136:Src/core_init.c ****     }
+ 137:Src/core_init.c **** }
+ 401              		.loc 1 137 1 view .LVU120
+ 402 0010 70BD     		pop	{r4, r5, r6, pc}
+ 403              	.LVL13:
+ 404              	.L21:
+ 108:Src/core_init.c ****     } else {
+ 405              		.loc 1 108 9 is_stmt 1 view .LVU121
+ 406 0012 FFF7FEFF 		bl	MX_GPIO_Init
+ 407              	.LVL14:
+ 108:Src/core_init.c ****     } else {
+ 408              		.loc 1 108 9 is_stmt 0 view .LVU122
+ 409 0016 F8E7     		b	.L16
+ 410              	.L22:
+ 113:Src/core_init.c ****     } else {
+ 411              		.loc 1 113 9 is_stmt 1 view .LVU123
+ 412 0018 FFF7FEFF 		bl	MX_USART1_UART_Init
+ 413              	.LVL15:
+ 414 001c F6E7     		b	.L17
+ 415              	.L23:
+ 118:Src/core_init.c ****     } else {
+ 416              		.loc 1 118 9 view .LVU124
+ 417 001e FFF7FEFF 		bl	SystemClock_Config
+ 418              	.LVL16:
+ 419 0022 F4E7     		b	.L18
+ 420              	.L24:
+ 123:Src/core_init.c ****     } else {
+ 421              		.loc 1 123 9 view .LVU125
+ 422 0024 FFF7FEFF 		bl	HAL_Init
+ 423              	.LVL17:
+ 126:Src/core_init.c ****     if (tim1_flag == true) {
+ 424              		.loc 1 126 5 view .LVU126
+ 127:Src/core_init.c ****         /* insert handler */
+ 425              		.loc 1 127 5 view .LVU127
+ 131:Src/core_init.c ****     if (tim2_flag == true) {
+ 426              		.loc 1 131 5 view .LVU128
+ 132:Src/core_init.c ****         /* insert handler */
+ 427              		.loc 1 132 5 view .LVU129
+ 136:Src/core_init.c **** }
+ 428              		.loc 1 136 5 view .LVU130
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 11
+
+
+ 429              		.loc 1 137 1 is_stmt 0 view .LVU131
+ 430 0028 F2E7     		b	.L15
+ 431              		.cfi_endproc
+ 432              	.LFE71:
+ 434              		.section	.rodata.USART1_String_Parse.str1.4,"aMS",%progbits,1
+ 435              		.align	2
+ 436              	.LC0:
+ 437 0000 0D00     		.ascii	"\015\000"
+ 438              		.section	.text.USART1_String_Parse,"ax",%progbits
+ 439              		.align	1
+ 440              		.global	USART1_String_Parse
+ 441              		.syntax unified
+ 442              		.thumb
+ 443              		.thumb_func
+ 444              		.fpu softvfp
+ 446              	USART1_String_Parse:
+ 447              	.LVL18:
+ 448              	.LFB72:
+ 138:Src/core_init.c **** 
+ 139:Src/core_init.c **** /*
+ 140:Src/core_init.c ****     Function to parse only string over USART1;
+ 141:Src/core_init.c ****     Function appends "CR" - carriage return symbol to parsed string.
+ 142:Src/core_init.c **** */
+ 143:Src/core_init.c **** void USART1_String_Parse (char* data) {
+ 449              		.loc 1 143 39 is_stmt 1 view -0
+ 450              		.cfi_startproc
+ 451              		@ args = 0, pretend = 0, frame = 200
+ 452              		@ frame_needed = 0, uses_anonymous_args = 0
+ 453              		.loc 1 143 39 is_stmt 0 view .LVU133
+ 454 0000 10B5     		push	{r4, lr}
+ 455              	.LCFI9:
+ 456              		.cfi_def_cfa_offset 8
+ 457              		.cfi_offset 4, -8
+ 458              		.cfi_offset 14, -4
+ 459 0002 B2B0     		sub	sp, sp, #200
+ 460              	.LCFI10:
+ 461              		.cfi_def_cfa_offset 208
+ 462 0004 0446     		mov	r4, r0
+ 144:Src/core_init.c ****     const char* carriage_return_append = "\r";
+ 463              		.loc 1 144 5 is_stmt 1 view .LVU134
+ 464              	.LVL19:
+ 145:Src/core_init.c ****     char ptr[MAX_STRING_PARSE_SIZE];
+ 465              		.loc 1 145 5 view .LVU135
+ 146:Src/core_init.c ****     memset(ptr, 0, strlen(ptr));
+ 466              		.loc 1 146 5 view .LVU136
+ 467 0006 6846     		mov	r0, sp
+ 468              	.LVL20:
+ 469              		.loc 1 146 5 is_stmt 0 view .LVU137
+ 470 0008 FFF7FEFF 		bl	strlen
+ 471              	.LVL21:
+ 472 000c 0246     		mov	r2, r0
+ 473 000e 0021     		movs	r1, #0
+ 474 0010 6846     		mov	r0, sp
+ 475 0012 FFF7FEFF 		bl	memset
+ 476              	.LVL22:
+ 147:Src/core_init.c ****     if (strlen(data) > MAX_STRING_PARSE_SIZE) {
+ 477              		.loc 1 147 5 is_stmt 1 view .LVU138
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 12
+
+
+ 478              		.loc 1 147 9 is_stmt 0 view .LVU139
+ 479 0016 2046     		mov	r0, r4
+ 480 0018 FFF7FEFF 		bl	strlen
+ 481              	.LVL23:
+ 482              		.loc 1 147 8 view .LVU140
+ 483 001c C828     		cmp	r0, #200
+ 484 001e 0CD9     		bls	.L26
+ 148:Src/core_init.c ****         HAL_UART_Transmit(&huart1, (uint8_t *)error_string_table[eStringIsTooLarge].ErrorStr, strle
+ 485              		.loc 1 148 9 is_stmt 1 view .LVU141
+ 486              		.loc 1 148 84 is_stmt 0 view .LVU142
+ 487 0020 114B     		ldr	r3, .L29
+ 488 0022 5C68     		ldr	r4, [r3, #4]
+ 489              	.LVL24:
+ 490              		.loc 1 148 95 view .LVU143
+ 491 0024 2046     		mov	r0, r4
+ 492 0026 FFF7FEFF 		bl	strlen
+ 493              	.LVL25:
+ 494              		.loc 1 148 9 view .LVU144
+ 495 002a 0F23     		movs	r3, #15
+ 496 002c 82B2     		uxth	r2, r0
+ 497 002e 2146     		mov	r1, r4
+ 498 0030 0E48     		ldr	r0, .L29+4
+ 499 0032 FFF7FEFF 		bl	HAL_UART_Transmit
+ 500              	.LVL26:
+ 501              	.L25:
+ 149:Src/core_init.c ****     } else {
+ 150:Src/core_init.c ****         strncpy(ptr, data, strlen(data));
+ 151:Src/core_init.c ****         strcat(ptr, carriage_return_append);
+ 152:Src/core_init.c ****         HAL_UART_Transmit(&huart1, (uint8_t *)ptr, strlen(data)+strlen(carriage_return_append), 100
+ 153:Src/core_init.c ****     }
+ 154:Src/core_init.c **** }
+ 502              		.loc 1 154 1 view .LVU145
+ 503 0036 32B0     		add	sp, sp, #200
+ 504              	.LCFI11:
+ 505              		.cfi_remember_state
+ 506              		.cfi_def_cfa_offset 8
+ 507              		@ sp needed
+ 508 0038 10BD     		pop	{r4, pc}
+ 509              	.LVL27:
+ 510              	.L26:
+ 511              	.LCFI12:
+ 512              		.cfi_restore_state
+ 513              		.loc 1 154 1 view .LVU146
+ 514 003a 0246     		mov	r2, r0
+ 150:Src/core_init.c ****         strcat(ptr, carriage_return_append);
+ 515              		.loc 1 150 9 is_stmt 1 view .LVU147
+ 516 003c 2146     		mov	r1, r4
+ 517 003e 6846     		mov	r0, sp
+ 518 0040 FFF7FEFF 		bl	strncpy
+ 519              	.LVL28:
+ 151:Src/core_init.c ****         HAL_UART_Transmit(&huart1, (uint8_t *)ptr, strlen(data)+strlen(carriage_return_append), 100
+ 520              		.loc 1 151 9 view .LVU148
+ 521 0044 6846     		mov	r0, sp
+ 522 0046 FFF7FEFF 		bl	strlen
+ 523              	.LVL29:
+ 524 004a 094B     		ldr	r3, .L29+8
+ 525 004c 1B88     		ldrh	r3, [r3]	@ unaligned
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 13
+
+
+ 526 004e 2DF80030 		strh	r3, [sp, r0]	@ unaligned
+ 152:Src/core_init.c ****     }
+ 527              		.loc 1 152 9 view .LVU149
+ 152:Src/core_init.c ****     }
+ 528              		.loc 1 152 52 is_stmt 0 view .LVU150
+ 529 0052 2046     		mov	r0, r4
+ 530 0054 FFF7FEFF 		bl	strlen
+ 531              	.LVL30:
+ 152:Src/core_init.c ****     }
+ 532              		.loc 1 152 9 view .LVU151
+ 533 0058 421C     		adds	r2, r0, #1
+ 534 005a 6423     		movs	r3, #100
+ 535 005c 92B2     		uxth	r2, r2
+ 536 005e 6946     		mov	r1, sp
+ 537 0060 0248     		ldr	r0, .L29+4
+ 538 0062 FFF7FEFF 		bl	HAL_UART_Transmit
+ 539              	.LVL31:
+ 540              		.loc 1 154 1 view .LVU152
+ 541 0066 E6E7     		b	.L25
+ 542              	.L30:
+ 543              		.align	2
+ 544              	.L29:
+ 545 0068 00000000 		.word	.LANCHOR1
+ 546 006c 00000000 		.word	.LANCHOR0
+ 547 0070 00000000 		.word	.LC0
+ 548              		.cfi_endproc
+ 549              	.LFE72:
+ 551              		.section	.text.print,"ax",%progbits
+ 552              		.align	1
+ 553              		.global	print
+ 554              		.syntax unified
+ 555              		.thumb
+ 556              		.thumb_func
+ 557              		.fpu softvfp
+ 559              	print:
+ 560              	.LVL32:
+ 561              	.LFB73:
+ 155:Src/core_init.c **** 
+ 156:Src/core_init.c **** /*
+ 157:Src/core_init.c ****     Main function for debugging purposes. Uses USART1 to parse any type of raw data to terminal.
+ 158:Src/core_init.c ****     Function is based on printf();
+ 159:Src/core_init.c ****     Example: print("Current version: %d", 101)
+ 160:Src/core_init.c **** */
+ 161:Src/core_init.c **** int print (char * str, ...) {
+ 562              		.loc 1 161 29 is_stmt 1 view -0
+ 563              		.cfi_startproc
+ 564              		@ args = 4, pretend = 16, frame = 128
+ 565              		@ frame_needed = 0, uses_anonymous_args = 1
+ 566              		.loc 1 161 29 is_stmt 0 view .LVU154
+ 567 0000 0FB4     		push	{r0, r1, r2, r3}
+ 568              	.LCFI13:
+ 569              		.cfi_def_cfa_offset 16
+ 570              		.cfi_offset 0, -16
+ 571              		.cfi_offset 1, -12
+ 572              		.cfi_offset 2, -8
+ 573              		.cfi_offset 3, -4
+ 574 0002 F0B5     		push	{r4, r5, r6, r7, lr}
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 14
+
+
+ 575              	.LCFI14:
+ 576              		.cfi_def_cfa_offset 36
+ 577              		.cfi_offset 4, -36
+ 578              		.cfi_offset 5, -32
+ 579              		.cfi_offset 6, -28
+ 580              		.cfi_offset 7, -24
+ 581              		.cfi_offset 14, -20
+ 582 0004 A1B0     		sub	sp, sp, #132
+ 583              	.LCFI15:
+ 584              		.cfi_def_cfa_offset 168
+ 585 0006 26AD     		add	r5, sp, #152
+ 586 0008 55F8046B 		ldr	r6, [r5], #4
+ 162:Src/core_init.c ****     va_list vl;
+ 587              		.loc 1 162 5 is_stmt 1 view .LVU155
+ 163:Src/core_init.c ****     int i = 0, j=0;
+ 588              		.loc 1 163 5 view .LVU156
+ 589              	.LVL33:
+ 164:Src/core_init.c ****     char buff[100]={0}, tmp[20];
+ 590              		.loc 1 164 5 view .LVU157
+ 591              		.loc 1 164 10 is_stmt 0 view .LVU158
+ 592 000c 0024     		movs	r4, #0
+ 593 000e 0694     		str	r4, [sp, #24]
+ 594 0010 6022     		movs	r2, #96
+ 595 0012 2146     		mov	r1, r4
+ 596 0014 07A8     		add	r0, sp, #28
+ 597 0016 FFF7FEFF 		bl	memset
+ 598              	.LVL34:
+ 165:Src/core_init.c ****     char * str_arg;
+ 599              		.loc 1 165 5 is_stmt 1 view .LVU159
+ 166:Src/core_init.c ****     va_start( vl, str );
+ 600              		.loc 1 166 5 view .LVU160
+ 601 001a 1F95     		str	r5, [sp, #124]
+ 167:Src/core_init.c ****     while (str && str[i]) {
+ 602              		.loc 1 167 5 view .LVU161
+ 163:Src/core_init.c ****     char buff[100]={0}, tmp[20];
+ 603              		.loc 1 163 16 is_stmt 0 view .LVU162
+ 604 001c 2546     		mov	r5, r4
+ 605              		.loc 1 167 11 view .LVU163
+ 606 001e 1BE0     		b	.L32
+ 607              	.LVL35:
+ 608              	.L43:
+ 168:Src/core_init.c ****         if(str[i] == '%') {
+ 169:Src/core_init.c ****             i++;
+ 609              		.loc 1 169 13 is_stmt 1 view .LVU164
+ 610              		.loc 1 169 14 is_stmt 0 view .LVU165
+ 611 0020 0134     		adds	r4, r4, #1
+ 612              	.LVL36:
+ 170:Src/core_init.c ****             switch (str[i]) {
+ 613              		.loc 1 170 13 is_stmt 1 view .LVU166
+ 614              		.loc 1 170 24 is_stmt 0 view .LVU167
+ 615 0022 335D     		ldrb	r3, [r6, r4]	@ zero_extendqisi2
+ 616 0024 633B     		subs	r3, r3, #99
+ 617 0026 152B     		cmp	r3, #21
+ 618 0028 15D8     		bhi	.L34
+ 619 002a DFE803F0 		tbb	[pc, r3]
+ 620              	.L36:
+ 621 002e 0B       		.byte	(.L39-.L36)/2
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 15
+
+
+ 622 002f 22       		.byte	(.L38-.L36)/2
+ 623 0030 14       		.byte	(.L34-.L36)/2
+ 624 0031 14       		.byte	(.L34-.L36)/2
+ 625 0032 14       		.byte	(.L34-.L36)/2
+ 626 0033 14       		.byte	(.L34-.L36)/2
+ 627 0034 14       		.byte	(.L34-.L36)/2
+ 628 0035 14       		.byte	(.L34-.L36)/2
+ 629 0036 14       		.byte	(.L34-.L36)/2
+ 630 0037 14       		.byte	(.L34-.L36)/2
+ 631 0038 14       		.byte	(.L34-.L36)/2
+ 632 0039 14       		.byte	(.L34-.L36)/2
+ 633 003a 14       		.byte	(.L34-.L36)/2
+ 634 003b 14       		.byte	(.L34-.L36)/2
+ 635 003c 14       		.byte	(.L34-.L36)/2
+ 636 003d 14       		.byte	(.L34-.L36)/2
+ 637 003e 46       		.byte	(.L37-.L36)/2
+ 638 003f 14       		.byte	(.L34-.L36)/2
+ 639 0040 14       		.byte	(.L34-.L36)/2
+ 640 0041 14       		.byte	(.L34-.L36)/2
+ 641 0042 14       		.byte	(.L34-.L36)/2
+ 642 0043 34       		.byte	(.L35-.L36)/2
+ 643              		.p2align 1
+ 644              	.L39:
+ 171:Src/core_init.c ****                 case 'c': {
+ 172:Src/core_init.c ****                     buff[j] = (char)va_arg( vl, int );
+ 645              		.loc 1 172 21 is_stmt 1 view .LVU168
+ 646              		.loc 1 172 37 is_stmt 0 view .LVU169
+ 647 0044 1F9B     		ldr	r3, [sp, #124]
+ 648 0046 1A1D     		adds	r2, r3, #4
+ 649 0048 1F92     		str	r2, [sp, #124]
+ 650              		.loc 1 172 31 view .LVU170
+ 651 004a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 652              		.loc 1 172 29 view .LVU171
+ 653 004c 20AB     		add	r3, sp, #128
+ 654 004e 2B44     		add	r3, r3, r5
+ 655 0050 03F8682C 		strb	r2, [r3, #-104]
+ 173:Src/core_init.c ****                     j++;
+ 656              		.loc 1 173 21 is_stmt 1 view .LVU172
+ 657              		.loc 1 173 22 is_stmt 0 view .LVU173
+ 658 0054 0135     		adds	r5, r5, #1
+ 659              	.LVL37:
+ 174:Src/core_init.c ****                     break;
+ 660              		.loc 1 174 21 is_stmt 1 view .LVU174
+ 661              	.L34:
+ 175:Src/core_init.c ****                 }
+ 176:Src/core_init.c ****                 case 'd': {
+ 177:Src/core_init.c ****                     itoa(va_arg( vl, int ), tmp, 10);
+ 178:Src/core_init.c ****                     strcpy(&buff[j], tmp);
+ 179:Src/core_init.c ****                     j += strlen(tmp);
+ 180:Src/core_init.c ****                     break;
+ 181:Src/core_init.c ****                 }
+ 182:Src/core_init.c ****                 case 'x': {
+ 183:Src/core_init.c ****                     itoa(va_arg( vl, int ), tmp, 16);
+ 184:Src/core_init.c ****                     strcpy(&buff[j], tmp);
+ 185:Src/core_init.c ****                     j += strlen(tmp);
+ 186:Src/core_init.c ****                     break;
+ 187:Src/core_init.c ****                 }
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 16
+
+
+ 188:Src/core_init.c ****                 case 's': {
+ 189:Src/core_init.c ****                     str_arg = va_arg( vl, char* );
+ 190:Src/core_init.c ****                     strcpy(&buff[j], str_arg);
+ 191:Src/core_init.c ****                     j += strlen(str_arg);
+ 192:Src/core_init.c ****                     break;
+ 193:Src/core_init.c ****                 }
+ 194:Src/core_init.c ****             }
+ 195:Src/core_init.c ****         } else {
+ 196:Src/core_init.c ****             buff[j] =str[i];
+ 197:Src/core_init.c ****             j++;
+ 198:Src/core_init.c ****         }
+ 199:Src/core_init.c ****     i++;
+ 662              		.loc 1 199 5 view .LVU175
+ 663              		.loc 1 199 6 is_stmt 0 view .LVU176
+ 664 0056 0134     		adds	r4, r4, #1
+ 665              	.LVL38:
+ 666              	.L32:
+ 167:Src/core_init.c ****         if(str[i] == '%') {
+ 667              		.loc 1 167 11 is_stmt 1 view .LVU177
+ 668 0058 002E     		cmp	r6, #0
+ 669 005a 3CD0     		beq	.L40
+ 167:Src/core_init.c ****         if(str[i] == '%') {
+ 670              		.loc 1 167 22 is_stmt 0 discriminator 1 view .LVU178
+ 671 005c 335D     		ldrb	r3, [r6, r4]	@ zero_extendqisi2
+ 167:Src/core_init.c ****         if(str[i] == '%') {
+ 672              		.loc 1 167 16 discriminator 1 view .LVU179
+ 673 005e 002B     		cmp	r3, #0
+ 674 0060 39D0     		beq	.L40
+ 168:Src/core_init.c ****             i++;
+ 675              		.loc 1 168 9 is_stmt 1 view .LVU180
+ 168:Src/core_init.c ****             i++;
+ 676              		.loc 1 168 11 is_stmt 0 view .LVU181
+ 677 0062 252B     		cmp	r3, #37
+ 678 0064 DCD0     		beq	.L43
+ 196:Src/core_init.c ****             j++;
+ 679              		.loc 1 196 13 is_stmt 1 view .LVU182
+ 196:Src/core_init.c ****             j++;
+ 680              		.loc 1 196 21 is_stmt 0 view .LVU183
+ 681 0066 20AA     		add	r2, sp, #128
+ 682 0068 2A44     		add	r2, r2, r5
+ 683 006a 02F8683C 		strb	r3, [r2, #-104]
+ 197:Src/core_init.c ****         }
+ 684              		.loc 1 197 13 is_stmt 1 view .LVU184
+ 197:Src/core_init.c ****         }
+ 685              		.loc 1 197 14 is_stmt 0 view .LVU185
+ 686 006e 0135     		adds	r5, r5, #1
+ 687              	.LVL39:
+ 197:Src/core_init.c ****         }
+ 688              		.loc 1 197 14 view .LVU186
+ 689 0070 F1E7     		b	.L34
+ 690              	.L38:
+ 177:Src/core_init.c ****                     strcpy(&buff[j], tmp);
+ 691              		.loc 1 177 21 is_stmt 1 view .LVU187
+ 692 0072 1F9B     		ldr	r3, [sp, #124]
+ 693 0074 1A1D     		adds	r2, r3, #4
+ 694 0076 1F92     		str	r2, [sp, #124]
+ 695 0078 0A22     		movs	r2, #10
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 17
+
+
+ 696 007a 01A9     		add	r1, sp, #4
+ 697 007c 1868     		ldr	r0, [r3]
+ 698 007e FFF7FEFF 		bl	itoa
+ 699              	.LVL40:
+ 178:Src/core_init.c ****                     j += strlen(tmp);
+ 700              		.loc 1 178 21 view .LVU188
+ 701 0082 01A9     		add	r1, sp, #4
+ 702 0084 06AB     		add	r3, sp, #24
+ 703 0086 5819     		adds	r0, r3, r5
+ 704 0088 FFF7FEFF 		bl	strcpy
+ 705              	.LVL41:
+ 179:Src/core_init.c ****                     break;
+ 706              		.loc 1 179 21 view .LVU189
+ 179:Src/core_init.c ****                     break;
+ 707              		.loc 1 179 26 is_stmt 0 view .LVU190
+ 708 008c 01A8     		add	r0, sp, #4
+ 709 008e FFF7FEFF 		bl	strlen
+ 710              	.LVL42:
+ 179:Src/core_init.c ****                     break;
+ 711              		.loc 1 179 23 view .LVU191
+ 712 0092 0544     		add	r5, r5, r0
+ 713              	.LVL43:
+ 180:Src/core_init.c ****                 }
+ 714              		.loc 1 180 21 is_stmt 1 view .LVU192
+ 715 0094 DFE7     		b	.L34
+ 716              	.L35:
+ 183:Src/core_init.c ****                     strcpy(&buff[j], tmp);
+ 717              		.loc 1 183 21 view .LVU193
+ 718 0096 1F9B     		ldr	r3, [sp, #124]
+ 719 0098 1A1D     		adds	r2, r3, #4
+ 720 009a 1F92     		str	r2, [sp, #124]
+ 721 009c 1022     		movs	r2, #16
+ 722 009e 01A9     		add	r1, sp, #4
+ 723 00a0 1868     		ldr	r0, [r3]
+ 724 00a2 FFF7FEFF 		bl	itoa
+ 725              	.LVL44:
+ 184:Src/core_init.c ****                     j += strlen(tmp);
+ 726              		.loc 1 184 21 view .LVU194
+ 727 00a6 01A9     		add	r1, sp, #4
+ 728 00a8 06AB     		add	r3, sp, #24
+ 729 00aa 5819     		adds	r0, r3, r5
+ 730 00ac FFF7FEFF 		bl	strcpy
+ 731              	.LVL45:
+ 185:Src/core_init.c ****                     break;
+ 732              		.loc 1 185 21 view .LVU195
+ 185:Src/core_init.c ****                     break;
+ 733              		.loc 1 185 26 is_stmt 0 view .LVU196
+ 734 00b0 01A8     		add	r0, sp, #4
+ 735 00b2 FFF7FEFF 		bl	strlen
+ 736              	.LVL46:
+ 185:Src/core_init.c ****                     break;
+ 737              		.loc 1 185 23 view .LVU197
+ 738 00b6 0544     		add	r5, r5, r0
+ 739              	.LVL47:
+ 186:Src/core_init.c ****                 }
+ 740              		.loc 1 186 21 is_stmt 1 view .LVU198
+ 741 00b8 CDE7     		b	.L34
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 18
+
+
+ 742              	.L37:
+ 189:Src/core_init.c ****                     strcpy(&buff[j], str_arg);
+ 743              		.loc 1 189 21 view .LVU199
+ 189:Src/core_init.c ****                     strcpy(&buff[j], str_arg);
+ 744              		.loc 1 189 29 is_stmt 0 view .LVU200
+ 745 00ba 1F9B     		ldr	r3, [sp, #124]
+ 746 00bc 1A1D     		adds	r2, r3, #4
+ 747 00be 1F92     		str	r2, [sp, #124]
+ 748 00c0 1F68     		ldr	r7, [r3]
+ 190:Src/core_init.c ****                     j += strlen(str_arg);
+ 749              		.loc 1 190 21 is_stmt 1 view .LVU201
+ 750 00c2 3946     		mov	r1, r7
+ 751 00c4 06AB     		add	r3, sp, #24
+ 752 00c6 5819     		adds	r0, r3, r5
+ 753 00c8 FFF7FEFF 		bl	strcpy
+ 754              	.LVL48:
+ 191:Src/core_init.c ****                     break;
+ 755              		.loc 1 191 21 view .LVU202
+ 191:Src/core_init.c ****                     break;
+ 756              		.loc 1 191 26 is_stmt 0 view .LVU203
+ 757 00cc 3846     		mov	r0, r7
+ 758 00ce FFF7FEFF 		bl	strlen
+ 759              	.LVL49:
+ 191:Src/core_init.c ****                     break;
+ 760              		.loc 1 191 23 view .LVU204
+ 761 00d2 0544     		add	r5, r5, r0
+ 762              	.LVL50:
+ 192:Src/core_init.c ****                 }
+ 763              		.loc 1 192 21 is_stmt 1 view .LVU205
+ 764 00d4 BFE7     		b	.L34
+ 765              	.L40:
+ 200:Src/core_init.c ****     }
+ 201:Src/core_init.c ****     USART1_String_Parse(buff);
+ 766              		.loc 1 201 5 view .LVU206
+ 767 00d6 06A8     		add	r0, sp, #24
+ 768 00d8 FFF7FEFF 		bl	USART1_String_Parse
+ 769              	.LVL51:
+ 202:Src/core_init.c ****     va_end(vl);
+ 770              		.loc 1 202 5 view .LVU207
+ 203:Src/core_init.c ****     return j;
+ 771              		.loc 1 203 5 view .LVU208
+ 204:Src/core_init.c **** }
+ 772              		.loc 1 204 1 is_stmt 0 view .LVU209
+ 773 00dc 2846     		mov	r0, r5
+ 774 00de 21B0     		add	sp, sp, #132
+ 775              	.LCFI16:
+ 776              		.cfi_def_cfa_offset 36
+ 777              		@ sp needed
+ 778 00e0 BDE8F040 		pop	{r4, r5, r6, r7, lr}
+ 779              	.LCFI17:
+ 780              		.cfi_restore 14
+ 781              		.cfi_restore 7
+ 782              		.cfi_restore 6
+ 783              		.cfi_restore 5
+ 784              		.cfi_restore 4
+ 785              		.cfi_def_cfa_offset 16
+ 786              	.LVL52:
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 19
+
+
+ 787              		.loc 1 204 1 view .LVU210
+ 788 00e4 04B0     		add	sp, sp, #16
+ 789              	.LCFI18:
+ 790              		.cfi_restore 3
+ 791              		.cfi_restore 2
+ 792              		.cfi_restore 1
+ 793              		.cfi_restore 0
+ 794              		.cfi_def_cfa_offset 0
+ 795 00e6 7047     		bx	lr
+ 796              		.cfi_endproc
+ 797              	.LFE73:
+ 799              		.global	error_string_table
+ 800              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 801              		.align	2
+ 802              	.LC1:
+ 803 0000 53545249 		.ascii	"STRING IS TOO LARGE1\015\000"
+ 803      4E472049 
+ 803      5320544F 
+ 803      4F204C41 
+ 803      52474531 
+ 804 0016 0000     		.align	2
+ 805              	.LC2:
+ 806 0018 4E454741 		.ascii	"NEGATIVE FREQUENCY IS SET\015\000"
+ 806      54495645 
+ 806      20465245 
+ 806      5155454E 
+ 806      43592049 
+ 807              		.global	huart1
+ 808              		.section	.bss.huart1,"aw",%nobits
+ 809              		.align	2
+ 810              		.set	.LANCHOR0,. + 0
+ 813              	huart1:
+ 814 0000 00000000 		.space	68
+ 814      00000000 
+ 814      00000000 
+ 814      00000000 
+ 814      00000000 
+ 815              		.section	.data.error_string_table,"aw"
+ 816              		.align	2
+ 817              		.set	.LANCHOR1,. + 0
+ 820              	error_string_table:
+ 821 0000 00       		.byte	0
+ 822 0001 000000   		.space	3
+ 823 0004 00000000 		.word	.LC1
+ 824 0008 01       		.byte	1
+ 825 0009 000000   		.space	3
+ 826 000c 18000000 		.word	.LC2
+ 827              		.text
+ 828              	.Letext0:
+ 829              		.file 2 "c:\\dev\\tools\\gcc-arm-none-eabi-10-2020-q4-major\\arm-none-eabi\\include\\machine\\_def
+ 830              		.file 3 "c:\\dev\\tools\\gcc-arm-none-eabi-10-2020-q4-major\\arm-none-eabi\\include\\sys\\_stdint.
+ 831              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 832              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 833              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h"
+ 834              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h"
+ 835              		.file 8 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 836              		.file 9 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 20
+
+
+ 837              		.file 10 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 838              		.file 11 "c:\\dev\\tools\\gcc-arm-none-eabi-10-2020-q4-major\\lib\\gcc\\arm-none-eabi\\10.2.1\\inc
+ 839              		.file 12 "c:\\dev\\tools\\gcc-arm-none-eabi-10-2020-q4-major\\arm-none-eabi\\include\\stdio.h"
+ 840              		.file 13 "Inc/core_init.h"
+ 841              		.file 14 "c:\\dev\\tools\\gcc-arm-none-eabi-10-2020-q4-major\\arm-none-eabi\\include\\stdlib.h"
+ 842              		.file 15 "c:\\dev\\tools\\gcc-arm-none-eabi-10-2020-q4-major\\arm-none-eabi\\include\\string.h"
+ 843              		.file 16 "<built-in>"
+ 844              		.file 17 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 845              		.file 18 "Inc/main.h"
+ARM GAS  C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 core_init.c
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:16     .text.MX_USART1_UART_Init:00000000 $t
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:24     .text.MX_USART1_UART_Init:00000000 MX_USART1_UART_Init
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:73     .text.MX_USART1_UART_Init:00000024 $d
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:79     .text.SystemClock_Config:00000000 $t
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:86     .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:192    .text.MX_GPIO_Init:00000000 $t
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:199    .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:349    .text.MX_GPIO_Init:000000a8 $d
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:356    .text.Enabler:00000000 $t
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:363    .text.Enabler:00000000 Enabler
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:435    .rodata.USART1_String_Parse.str1.4:00000000 $d
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:439    .text.USART1_String_Parse:00000000 $t
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:446    .text.USART1_String_Parse:00000000 USART1_String_Parse
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:545    .text.USART1_String_Parse:00000068 $d
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:552    .text.print:00000000 $t
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:559    .text.print:00000000 print
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:621    .text.print:0000002e $d
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:643    .text.print:00000044 $t
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:820    .data.error_string_table:00000000 error_string_table
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:801    .rodata.str1.4:00000000 $d
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:813    .bss.huart1:00000000 huart1
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:809    .bss.huart1:00000000 $d
+C:\Users\zygim\AppData\Local\Temp\cc2ixG7t.s:816    .data.error_string_table:00000000 $d
+
+UNDEFINED SYMBOLS
+HAL_UART_Init
+memset
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+Error_Handler
+HAL_GPIO_WritePin
+HAL_GPIO_Init
+HAL_Init
+strlen
+HAL_UART_Transmit
+strncpy
+itoa
+strcpy
